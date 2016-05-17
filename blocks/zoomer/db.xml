@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<schema version="0.3">
+    <table name="btZoomer">
+        <field name="bID" type="I">
+            <key />
+            <unsigned />
+        </field>
+        <field name="fID" type="I"></field>
+        <field name="zoomType" type="C" size="20"></field>
+        <field name="maxThumbWidth" type="I"></field>
+        <field name="maxThumbHeight" type="I"></field>
+        <field name="maxImageWidth" type="I"></field>
+        <field name="maxImageHeight" type="I"></field>
+    </table>
+</schema>
