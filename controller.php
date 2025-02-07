@@ -1,35 +1,54 @@
-<?php      
+<?php
 
 namespace Concrete\Package\Zoomer;
-use Package;
-use BlockType;
 
-defined('C5_EXECUTE') or die(_("Access Denied."));
+use Concrete\Core\Block\BlockType\BlockType;
+use Concrete\Core\Package\Package;
+
+defined('C5_EXECUTE') or die('Access Denied.');
 
 class Controller extends Package
 {
-
+    /**
+     * @var string
+     */
 	protected $pkgHandle = 'zoomer';
-	protected $appVersionRequired = '5.7.1';
-	protected $pkgVersion = '1.0.1';
-	
-	
-	
-	public function getPackageDescription()
-	{
-		return t("Add Zoomable Images to your site");
-	}
 
+	/**
+	 * @var string
+	 */
+	protected $pkgVersion = '1.0.1';
+
+	/**
+	 * {@inheritdoc}
+	 *
+	 * @see \Concrete\Core\Package\Package::$appVersionRequired
+	 */
+	protected $appVersionRequired = '8.5.2';
+
+	/**
+	 * {@inheritdoc}
+	 *
+	 * @see \Concrete\Core\Package\Package::getPackageName()
+	 */
 	public function getPackageName()
 	{
-		return t("Zoomer");
+	    return t('Zoomer');
 	}
-	
+
+	/**
+	 * {@inheritdoc}
+	 *
+	 * @see \Concrete\Core\Package\Package::getPackageDescription()
+	 */
+	public function getPackageDescription()
+	{
+		return t('Add Zoomable Images to your site');
+	}
+
 	public function install()
 	{
 		$pkg = parent::install();
-        BlockType::installBlockTypeFromPackage('zoomer', $pkg); 
-        
+		BlockType::installBlockType('zoomer', $pkg);
 	}
 }
-?>

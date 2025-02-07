@@ -1,15 +1,36 @@
-<?xml version="1.0"?>
-<schema version="0.3">
+<?xml version="1.0" encoding="UTF-8"?>
+<schema
+    xmlns="http://www.concrete5.org/doctrine-xml/0.5"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.concrete5.org/doctrine-xml/0.5 https://concretecms.github.io/doctrine-xml/doctrine-xml-0.5.xsd"
+>
     <table name="btZoomer">
-        <field name="bID" type="I">
-            <key />
+        <field name="bID" type="integer">
             <unsigned />
+            <key />
         </field>
-        <field name="fID" type="I"></field>
-        <field name="zoomType" type="C" size="20"></field>
-        <field name="maxThumbWidth" type="I"></field>
-        <field name="maxThumbHeight" type="I"></field>
-        <field name="maxImageWidth" type="I"></field>
-        <field name="maxImageHeight" type="I"></field>
+        <field name="fID" type="integer">
+            <unsigned />
+            <notnull />
+        </field>
+        <field name="zoomType" type="string" size="20">
+            <notnull />
+        </field>
+        <field name="maxThumbWidth" type="integer">
+            <unsigned />
+            <notnull />
+        </field>
+        <field name="maxThumbHeight" type="integer">
+            <unsigned />
+            <notnull />
+        </field>
+        <field name="maxImageWidth" type="integer">
+            <unsigned />
+            <notnull />
+        </field>
+        <field name="maxImageHeight" type="integer">
+            <unsigned />
+            <notnull />
+        </field>
     </table>
 </schema>
