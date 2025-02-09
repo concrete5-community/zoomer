@@ -142,14 +142,14 @@ class Controller extends BlockController
                 'css',
                 'featherlight',
                 'blocks/zoomer/assets/featherlight.css',
-                ['version' => '0.4.10', 'minify' => false],
+                ['version' => '1.7.14', 'minify' => false],
                 'zoomer'
             );
             $assetList->register(
                 'javascript',
                 'featherlight',
                 'blocks/zoomer/assets/featherlight.js',
-                ['version' => '0.4.10', 'minify' => false],
+                ['version' => '1.7.14', 'minify' => false],
                 'zoomer'
             );
             $assetList->register(
