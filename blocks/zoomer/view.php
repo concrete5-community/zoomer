@@ -6,14 +6,15 @@ defined('C5_EXECUTE') or die('Access Denied.');
 
 /**
  * @var Concrete\Package\Zoomer\Block\Zoomer\Controller $controller
+ * @var int $bID
  * @var string $zoomType
  * @var bool $editMode
  * @var Concrete\Core\Entity\File\File|null $img
  *
  * If $img is not null:
+ * @var Concrete\Core\Utility\Service\Identifier $identifierService
  * @var stdClass $thumb
  * @var stdClass $large
- * @var int $uniqueBlockID
  */
 
 if (!$img) {
@@ -30,6 +31,8 @@ if (!$img) {
     }
     return;
 }
+
+$uniqueBlockID = $bID . '_' . $identifierService->getString(12);
 
 switch ($zoomType) {
     case $controller::ZOOMTYPE_ZOOM:

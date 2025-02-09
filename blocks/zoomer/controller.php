@@ -2,13 +2,14 @@
 
 namespace Concrete\Package\Zoomer\Block\Zoomer;
 
-use Concrete\Core\Block\BlockController;
 use Concrete\Core\Asset\AssetList;
-use Concrete\Core\File\File;
+use Concrete\Core\Block\BlockController;
 use Concrete\Core\Error\UserMessageException;
-use Punic\Unit;
-use Punic\Exception\ValueNotInList;
+use Concrete\Core\File\File;
 use Concrete\Core\Page\Page;
+use Concrete\Core\Utility\Service\Identifier;
+use Punic\Exception\ValueNotInList;
+use Punic\Unit;
 
 class Controller extends BlockController
 {
@@ -202,8 +203,7 @@ class Controller extends BlockController
         $ih = $this->app->make('helper/image');
         $this->set('thumb', $ih->getThumbnail($img, $this->maxThumbWidth, $this->maxThumbHeight, true));
         $this->set('large', $ih->getThumbnail($img, $this->maxImageWidth, $this->maxImageHeight, false));
-        $proxyBlock = ($b = $this->getBlockObject()) ? $b->getProxyBlock() : null;
-        $this->set('uniqueBlockID', (int) ($proxyBlock ? $proxyBlock->getBlockID() : $this->bID));
+        $this->set('identifierService', $this->app->make(Identifier::class));
     }
 
     protected function prepareEdit()
