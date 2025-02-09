@@ -15,7 +15,7 @@ defined('C5_EXECUTE') or die('Access Denied.');
  * @var stdClass $large
  * @var int $uniqueBlockID
  */
-$img=null;
+
 if (!$img) {
     if ($editMode) {
         Localization::getInstance()->withContext(Localization::CONTEXT_UI, static function() {
