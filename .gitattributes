@@ -1,1 +1,3 @@
 /.* export-ignore
+/thumbnail.png export-ignore
+/thumbnail.svg export-ignore
