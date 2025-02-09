@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<concrete5-cif version="1.0">
+
+    <blocktypes>
+        <blocktype package="zoomer" handle="zoomer" />
+    </blocktypes>
+
+    <blocktypesets>
+        <blocktypeset handle="multimedia" name="Multimedia" package="zoomer">
+            <blocktype handle="zoomer" />
+        </blocktypeset>
+    </blocktypesets>
+
+</concrete5-cif>
