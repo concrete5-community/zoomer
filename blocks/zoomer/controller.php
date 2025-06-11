@@ -6,12 +6,15 @@ use Concrete\Core\Asset\AssetList;
 use Concrete\Core\Block\BlockController;
 use Concrete\Core\Error\UserMessageException;
 use Concrete\Core\File\File;
+use Concrete\Core\File\Tracker\FileTrackableInterface;
+use Concrete\Core\Localization\Localization;
 use Concrete\Core\Page\Page;
+use Concrete\Core\Statistics\UsageTracker\AggregateTracker;
 use Concrete\Core\Utility\Service\Identifier;
 use Punic\Exception\ValueNotInList;
 use Punic\Unit;
 
-class Controller extends BlockController
+class Controller extends BlockController implements FileTrackableInterface
 {
     /**
      * @var string
@@ -74,6 +77,11 @@ class Controller extends BlockController
      * @see \Concrete\Core\Block\BlockController::$btExportFileColumns
      */
     protected $btExportFileColumns = ['fID'];
+
+    /**
+     * @var \Concrete\Core\Statistics\UsageTracker\AggregateTracker|null
+     */
+    protected $tracker;
 
     /**
      * @var int|string|null
@@ -241,8 +249,49 @@ class Controller extends BlockController
         if (!is_array($normalized)) {
             throw new UserMessageException(implode("\n", $normalized->getList()));
         }
+        parent::save($normalized);
+        $this->fID = $normalized['fID'];
+        if (version_compare(APP_VERSION, '9.0.2') < 0) {
+            $this->getTracker()->track($this);
+        }
+    }
 
-        return parent::save($normalized);
+    /**
+     * {@inheritdoc}
+     *
+     * @see \Concrete\Core\Block\BlockController::delete()
+     */
+    public function delete()
+    {
+        if (version_compare(APP_VERSION, '9.0.2') < 0) {
+            $this->getTracker()->forget($this);
+        }
+        parent::delete();
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see \Concrete\Core\File\Tracker\FileTrackableInterface::getUsedCollection()
+     */
+    public function getUsedCollection()
+    {
+        return $this->getCollectionObject();
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see \Concrete\Core\File\Tracker\FileTrackableInterface::getUsedFiles()
+     */
+    public function getUsedFiles()
+    {
+        $result = [];
+        if (($id = (int) $this->fID) > 0) {
+            $result[] = $id;
+        }
+
+        return $result;
     }
 
     /**
@@ -297,5 +346,17 @@ class Controller extends BlockController
             static::ZOOMTYPE_LENSZOOM => t('Lens Zoom'),
             static::ZOOMTYPE_LIGHTBOX => t('Lightbox'),
         ];
+    }
+
+    /**
+     * @return \Concrete\Core\Statistics\UsageTracker\AggregateTracker
+     */
+    protected function getTracker()
+    {
+        if ($this->tracker === null) {
+            $this->tracker = $this->app->make(AggregateTracker::class);
+        }
+
+        return $this->tracker;
     }
 }
