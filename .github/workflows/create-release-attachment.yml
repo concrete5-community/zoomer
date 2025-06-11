@@ -9,13 +9,15 @@ jobs:
   attach-zip:
     name: Attach ZIP to release
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       -
         name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '7.4'
-          tools: composer:v2
+          php-version: '8.4'
+          tools: composer:v2.2
           coverage: none
       -
         name: Checkout
@@ -28,4 +30,3 @@ jobs:
         with:
           remove-files: |
             composer.json
-            composer.lock
