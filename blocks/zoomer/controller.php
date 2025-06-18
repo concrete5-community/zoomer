@@ -7,7 +7,6 @@ use Concrete\Core\Block\BlockController;
 use Concrete\Core\Error\UserMessageException;
 use Concrete\Core\File\File;
 use Concrete\Core\File\Tracker\FileTrackableInterface;
-use Concrete\Core\Localization\Localization;
 use Concrete\Core\Page\Page;
 use Concrete\Core\Statistics\UsageTracker\AggregateTracker;
 use Concrete\Core\Utility\Service\Identifier;
